@@ -44,7 +44,7 @@ public class ProductDaoImpl implements ProductDao {
         sql = sql + " ORDER BY " + productQueryParams.getOrderBy() + " " + productQueryParams.getSort();
 
         //分頁
-        sql = sql + " limit :limit OFFSET :offset";
+        sql = sql + " LIMIT :limit OFFSET :offset";
         map.put("limit", productQueryParams.getLimit());
         map.put("offset", productQueryParams.getOffset());
 
