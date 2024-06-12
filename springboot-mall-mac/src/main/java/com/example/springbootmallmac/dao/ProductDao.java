@@ -1,6 +1,5 @@
 package com.example.springbootmallmac.dao;
 
-import com.example.springbootmallmac.constant.ProductCategory;
 import com.example.springbootmallmac.dto.ProductQueryParams;
 import com.example.springbootmallmac.dto.ProductRequest;
 import com.example.springbootmallmac.model.Product;
