@@ -1,6 +1,6 @@
 package com.example.springbootmallmac.controller;
 
-import com.example.springbootmallmac.dto.UserRequest;
+import com.example.springbootmallmac.dto.UserRegisterRequest;
 import com.example.springbootmallmac.model.User;
 import com.example.springbootmallmac.service.UserService;
 import jakarta.validation.Valid;
@@ -18,8 +18,8 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/users/register")
-    public ResponseEntity <User> register(@RequestBody @Valid UserRequest userRequest) {
-        Integer userId = userService.register(userRequest);
+    public ResponseEntity <User> register(@RequestBody @Valid UserRegisterRequest userRegisterRequest) {
+        Integer userId = userService.register(userRegisterRequest);
         User user = userService.getUserById(userId);
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
