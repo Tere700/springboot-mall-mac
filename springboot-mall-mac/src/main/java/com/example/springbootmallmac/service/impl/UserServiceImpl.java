@@ -1,6 +1,7 @@
 package com.example.springbootmallmac.service.impl;
 
 import com.example.springbootmallmac.dao.UserDao;
+import com.example.springbootmallmac.dto.UserLoginRequest;
 import com.example.springbootmallmac.dto.UserRegisterRequest;
 import com.example.springbootmallmac.model.User;
 import com.example.springbootmallmac.service.UserService;
@@ -23,7 +24,7 @@ public class UserServiceImpl implements UserService {
     public Integer register(UserRegisterRequest userRegisterRequest) {
         //取名為register是因為不只創建帳號 還有創建帳號的邏輯
         //檢查註冊的Email
-        User user = userDao.getUserByEmail(userRegisterRequest);
+        User user = userDao.getUserByEmail(userRegisterRequest.getEmail());
         if (user != null){
             log.warn("該email {} 已註冊", userRegisterRequest.getEmail());
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
@@ -35,5 +36,22 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserById(Integer userId) {
         return userDao.getUserById(userId);
+    }
+
+    @Override
+    public User login(UserLoginRequest userLoginRequest) {
+        User user = userDao.getUserByEmail(userLoginRequest.getEmail());
+
+        if (user == null){
+            log.warn("該email {} 尚未註冊", userLoginRequest.getEmail() );
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        if(user.getPassword().equals(userLoginRequest.getPassword())){
+            return user;
+        }else {
+
+            log.warn("email{} 的密碼不正確", userLoginRequest.getEmail() );
+            throw  new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
     }
 }
