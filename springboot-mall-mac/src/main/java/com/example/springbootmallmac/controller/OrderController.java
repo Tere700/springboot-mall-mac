@@ -1,6 +1,7 @@
 package com.example.springbootmallmac.controller;
 
 import com.example.springbootmallmac.dto.CreateOrderRequest;
+import com.example.springbootmallmac.model.Order;
 import com.example.springbootmallmac.service.OrderService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,9 @@ public class OrderController {
 
         Integer orderId = orderService.createOrder(userId, createOrderRequest);
 
+        Order order = orderService.getOrderById(orderId);
 
-        return ResponseEntity.status(HttpStatus.OK).body(orderId);
+        return ResponseEntity.status(HttpStatus.OK).body(order);
     }
 }
 
