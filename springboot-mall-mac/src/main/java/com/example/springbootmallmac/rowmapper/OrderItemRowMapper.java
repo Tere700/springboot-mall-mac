@@ -10,6 +10,7 @@ public class OrderItemRowMapper implements RowMapper<OrderItem> {
     @Override
     public OrderItem mapRow(ResultSet rs, int rowNum) throws SQLException {
         OrderItem orderItem = new OrderItem();
+        orderItem.setOrderItemId(rs.getInt("order_item_id"));
         orderItem.setProductId(rs.getInt("product_id"));
         orderItem.setOrderId(rs.getInt("order_id"));
         orderItem.setQuantity(rs.getInt("quantity"));
