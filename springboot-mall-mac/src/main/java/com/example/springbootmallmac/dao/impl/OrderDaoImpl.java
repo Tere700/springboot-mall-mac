@@ -58,14 +58,18 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public List<Order> getOrders(OrderQueryParams orderQueryParams) {
-        String sql = "SELECT order_id, user_id, total_amount, created_date, last_modified_date FROM `order` where 1=1";
+        String sql = "SELECT order_id, user_id, total_amount, created_date, last_modified_date FROM `order` WHERE 1=1";
         Map<String, Object> params = new HashMap<>();
         sql = addFilteringSql(sql, params, orderQueryParams);
-        sql = sql + " ORDER BY created_time DESC";
+        sql = sql + " ORDER BY created_date DESC";
+
+        // 注意这里的空格
         sql = sql + " LIMIT :limit OFFSET :offset";
+
         params.put("limit", orderQueryParams.getLimit());
         params.put("offset", orderQueryParams.getOffset());
         List<Order> orderList = namedParameterJdbcTemplate.query(sql, params, new OrderRowMapper());
+
         return orderList;
     }
 
